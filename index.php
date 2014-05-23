@@ -22,7 +22,11 @@ $stmt = $pdo->prepare("SELECT tipo_logradouro, logradouro, bairro, cidade, uf FR
 
 if ($stmt->execute(array('cep' => $cep))) {
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
-    $data['resultado'] = 1;
+    if (empty($data)) {
+        $data = array('resultado' = 0);
+    } else {
+        $data['resultado'] = 1;
+    }
 } else {
     $data = array('resultado' => 0);
 }
